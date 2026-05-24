@@ -1,0 +1,394 @@
+/* ==========================================================================
+   VARIABLES Y SISTEMA DE DISEÑO
+   ========================================================================== */
+   :root {
+    /* Paleta Romántica Premium */
+    --color-bg-dark: #0a0510;
+    --color-primary: #ff4d6d;
+    --color-secondary: #ff758f;
+    --color-accent: #ffb3c1;
+    --color-gold: #d4af37;
+    --color-text-main: #ffffff;
+    --color-text-muted: #ffccd5;
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(20, 10, 25, 0.4);
+    --glass-border: rgba(255, 179, 193, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    
+    /* Tipografía */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+/* ==========================================================================
+   RESETEOS BASICOS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-bg-dark);
+    /* Imagen generada por IA */
+    background-image: url('assets/bg_romantic.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Capa de oscurecimiento suave sobre el fondo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(10, 5, 16, 0.4), rgba(10, 5, 16, 0.8));
+    z-index: -1;
+}
+
+/* ==========================================================================
+   PARTÍCULAS / CORAZONES
+   ========================================================================== */
+#particles-js {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.heart-particle {
+    position: absolute;
+    color: var(--color-secondary);
+    font-size: 1.5rem;
+    animation: floatUp 15s linear infinite;
+    opacity: 0;
+    text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-20vh) scale(1.5) rotate(360deg); opacity: 0; }
+}
+
+/* ==========================================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================================== */
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ==========================================================================
+   GLASSMORPHISM PANEL
+   ========================================================================== */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow);
+    padding: 3rem;
+}
+
+/* ==========================================================================
+   SECCIONES
+   ========================================================================== */
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 0;
+}
+
+/* -- Hero -- */
+.hero {
+    text-align: center;
+    min-height: 80vh;
+    margin-top: 10vh;
+    margin-bottom: 20vh;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(255, 179, 193, 0.4);
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--color-text-muted);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.scroll-indicator {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    animation: pulse 2s infinite;
+}
+
+.arrow-down {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    transform: rotate(45deg);
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(10px); }
+    100% { opacity: 0.5; transform: translateY(0); }
+}
+
+/* -- Títulos de Sección -- */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--color-gold);
+    margin-bottom: 3rem;
+    text-align: center;
+    font-style: italic;
+}
+
+/* -- Galería Polaroids -- */
+.gallery-section {
+    width: 100%;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.polaroid {
+    background: white;
+    padding: 15px 15px 40px 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: rotate(calc(-3deg + 6deg * var(--rand, 0.5)));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.polaroid:nth-child(1) { --rand: 0.1; }
+.polaroid:nth-child(2) { --rand: 0.8; }
+.polaroid:nth-child(3) { --rand: 0.3; }
+
+.polaroid:hover {
+    transform: scale(1.05) rotate(0deg);
+    z-index: 10;
+}
+
+.polaroid-img-wrapper {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background: #eee;
+}
+
+.polaroid-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.2) contrast(1.1);
+}
+
+.polaroid-caption {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #333;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* -- Carta de Amor -- */
+.letter-section {
+    width: 100%;
+}
+
+.love-letter {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.letter-title {
+    font-family: var(--font-heading);
+    color: var(--color-accent);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.letter-content p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.letter-content .signature {
+    margin-top: 3rem;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--color-gold);
+}
+
+/* -- Celebración -- */
+.celebration-section {
+    min-height: 80vh;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1.2rem 3rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(255, 77, 109, 0.5);
+}
+
+#celebrationMessage {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.glowing-text {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    color: var(--color-gold);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    margin-bottom: 1rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   ANIMACIONES ON SCROLL
+   ========================================================================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   GATO MÁGICO DE PARTÍCULAS
+   ========================================================================== */
+.particle-section {
+    width: 100%;
+}
+
+.particle-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgba(10, 5, 16, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.instruction-text {
+    font-size: 1.1rem;
+    color: var(--color-accent);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+#particleCanvas {
+    display: block;
+    width: 100%;
+    height: 500px; /* Altura fija coherente con el JS */
+    background: #000;
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0, 170, 255, 0.2);
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 77, 109, 0.8);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (Responsividad para Móviles)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .title { font-size: 3.5rem; }
+    .subtitle { font-size: 1rem; }
+    .glass-panel { padding: 2rem 1rem; }
+    .glowing-text { font-size: 2.5rem; }
+    .letter-content p { font-size: 1.1rem; }
+    .mobile-controls { display: flex; } /* Mostrar controles en móvil */
+}
